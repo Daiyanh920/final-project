@@ -96,14 +96,14 @@ function loadTransactions()
 
 function deleteTransaction(id)
 {
-    if (!confirm('Are you sure you want to delete this transaction?')) return; //Ask the user are you sure you want to delete 
+    if (!confirm('Are you sure you want to delete this transaction?')) return; 
   
     $.ajax({
       url: '/?url=transactions',
       method: 'DELETE',
       success: function (response) {
         alert(response.message || 'Transaction deleted');
-        loadTransactions(); // reload the table
+        loadTransactions(); 
       },
       error: function () {
         alert('Failed to delete transaction.');
@@ -143,6 +143,25 @@ function logout()
     },
     error: function () {
       alert('Failed to logout');
+    }
+  });
+}
+
+function clearAll() 
+{
+  if (!confirm('Are you sure you want to clear all transactions?')) return;
+
+  $.ajax({
+    url: '/?url=transactions',
+    method: 'DELETE', 
+    contentType: 'application/json',
+    data: JSON.stringify({ all: true }),
+    success: function (response) {
+      alert(response.message || 'All transactions cleared');
+      loadTransactions(); 
+    },
+    error: function () {
+      alert('Failed to clear transactions.');
     }
   });
 }

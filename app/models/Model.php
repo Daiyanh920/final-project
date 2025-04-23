@@ -31,6 +31,13 @@ class Model {
         $stmt = $db->prepare("DELETE FROM transactions ORDER BY id DESC LIMIT 1");
         return $stmt->execute();
     }
+
+    public static function clearAll() {
+        $db = getDB();
+        $stmt = $db->prepare("DELETE FROM transactions");
+        return $stmt->execute();
+    }
+
 }
 
 ?>

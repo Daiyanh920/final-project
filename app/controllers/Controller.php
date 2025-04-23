@@ -33,12 +33,18 @@ class Controller
             $result = Model::create($data);
             echo json_encode(['message' => $result ? 'Transaction added' : 'Failed to add transaction']);
         }
-
         elseif ($method === 'DELETE') {
-            $success = Model::deleteLast();
-            echo json_encode(['message' => $success ? 'Transaction deleted' : 'Failed to delete']);
+            $data = json_decode(file_get_contents("php://input"), true);
+    
+             if (isset($data['all']) && $data['all'] === true) {
+                $success = Model::clearAll();
+                echo json_encode(['message' => $success ? 'All transactions cleared' : 'Failed to clear']);
+            } else {
+                $success = Model::deleteLast();
+                echo json_encode(['message' => $success ? 'Transaction deleted' : 'Failed to delete']);
+            }
         }
-
+        
         else {
             http_response_code(405);
             echo json_encode(['message' => 'Method not allowed']);
