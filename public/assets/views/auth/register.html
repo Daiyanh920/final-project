@@ -14,7 +14,7 @@
     <input type="text" id="reg-username" placeholder="Username"><br>
     <input type="password" id="reg-password" placeholder="Password"><br>
     <button id="register-btn">Sign Up</button>
-    <button onclick="window.location.href='index.php?url=login-page'">Back to Login</button>
+    <button onclick="window.location.href='/login-page'">Back to Login</button>
     <p id="register-message"></p>
   </div>
 
@@ -25,7 +25,7 @@
   $(document).ready(function () {
   $('#register-btn').click(function () {
     $.ajax({
-      url: '/?url=register',
+      url: '/register',
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -35,7 +35,7 @@
       success: function (res) {
         $('#register-message').text(res.message || 'Registered successfully!');
         setTimeout(() => {
-          window.location.href = 'index.php?url=login-page';
+          window.location.href = '/login-page';
         }, 1000);
       },
       error: function (xhr) {

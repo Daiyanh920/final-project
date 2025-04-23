@@ -13,7 +13,7 @@
     <input type="text" id="login-username" placeholder="Username"><br>
     <input type="password" id="login-password" placeholder="Password"><br>
     <button id="login-btn">Log In</button>
-    <button onclick="window.location.href='index.php?url=register-page'">Register</button>
+    <button onclick="window.location.href='/register-page'">Register</button>
     <p id="login-message"></p>
   </div>
 
@@ -23,7 +23,7 @@
   $(document).ready(function () {
     $('#login-btn').click(function () {
       $.ajax({
-        url: '/?url=login',
+        url: '/login',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
@@ -33,7 +33,7 @@
         success: function (res) {
           $('#login-message').text(res.message || 'Logged in!');
           setTimeout(() => {
-            window.location.href = 'index.php?url=homepage';
+            window.location.href = '/homepage';
           }, 1000)
         }, 
         error: function (xhr) {

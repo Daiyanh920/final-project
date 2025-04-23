@@ -6,7 +6,7 @@ function addIncome()
     const amount = $('#income-amount').val();
   
     $.ajax({
-      url: '/?url=transactions',
+      url: '/transactions',
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -31,7 +31,7 @@ function addExpense()
     const category = $('#expense-category').val();
   
     $.ajax({
-      url: '/?url=transactions',
+      url: '/transactions',
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -53,7 +53,7 @@ function addExpense()
 function loadTransactions() 
 {
     $.ajax({
-      url: '?url=transactions',
+      url: '/transactions',
       method: 'GET',
       success: function (data) {
         console.log("Loaded transaction:", data)
@@ -99,7 +99,7 @@ function deleteTransaction(id)
     if (!confirm('Are you sure you want to delete this transaction?')) return; 
   
     $.ajax({
-      url: '/?url=transactions',
+      url: '/transactions',
       method: 'DELETE',
       success: function (response) {
         alert(response.message || 'Transaction deleted');
@@ -121,7 +121,7 @@ function searchStock()
   }
 
   $.ajax({
-    url: '/?url=stock-price&symbol=' + symbol,
+    url: '/stock-price&symbol=' + symbol,
     method: 'GET',
     success: function (data) {
       $('#stock-result').html(`<strong>${symbol}</strong> current price: $${data.c}`);
@@ -135,11 +135,11 @@ function searchStock()
 function logout() 
 {
   $.ajax({
-    url: '/?url=logout',
+    url: '/logout',
     method: 'POST',
     success: function (res) {
       alert(res.message || 'Logged out');
-      window.location.href = '/?url=login-page';
+      window.location.href = '/login-page';
     },
     error: function () {
       alert('Failed to logout');
@@ -152,7 +152,7 @@ function clearAll()
   if (!confirm('Are you sure you want to clear all transactions?')) return;
 
   $.ajax({
-    url: '/?url=transactions',
+    url: '/transactions',
     method: 'DELETE', 
     contentType: 'application/json',
     data: JSON.stringify({ all: true }),

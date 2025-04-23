@@ -8,17 +8,20 @@ function searchStock()
     }
   
     $.ajax({
-      url: `/?url=stock-price&symbol=${symbol}`,
+      url: `/stock-price?symbol=${symbol}`,
       method: 'GET',
       success: function (data) {
-        $('#stock-result').html(`<strong>${symbol}</strong> current price: $${data.c}`);
+        const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+        console.log("Parsed stock data:", parsed);
+
+        $('#stock-result').html(`<strong>${symbol}</strong> current price: $${parsed.c}`);
         $('#buy-section').show();
-        $('#buy-section').data('price', data.c); // Save price for buying
-      },
-      error: function () {
-        $('#stock-result').html('Failed to load stock data.');
-      }
-    });
+        $('#buy-section').data('price', parsed.c);       
+    },
+    error: function () {
+      $('#stock-result').html('Failed to load stock data.');
+    }
+  });
 }
 
 function buyStock() {
@@ -27,7 +30,7 @@ function buyStock() {
   const price = $('#buy-section').data('price');
 
   console.log("Sending buy data:", {
-    symbol: symbol,
+   symbol: symbol,
     quantity: quantity,
     price: price
   });
@@ -39,7 +42,7 @@ function buyStock() {
   }
 
   $.ajax({
-    url: '/?url=buy-stock',
+    url: '/buy-stock',
     method: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({
@@ -59,7 +62,7 @@ function buyStock() {
 function loadPortfolio() 
 {
   $.ajax({
-    url: '/?url=portfolio',
+    url: '/portfolio',
     method: 'GET',
     success: function (data) {
       $('#portfolio-table').empty();
@@ -71,7 +74,7 @@ function loadPortfolio()
 
         // Fetch current price from Finnhub
         $.ajax({
-          url: `/?url=stock-price&symbol=${symbol}`,
+          url: `/stock-price?symbol=${symbol}`,
           method: 'GET',
           success: function (liveData) 
           {
@@ -125,7 +128,7 @@ function sellStock() {
   }
 
   $.ajax({
-    url: '/?url=sell-stock',
+    url: '/sell-stock',
     method: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({ symbol, quantity }),

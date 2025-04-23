@@ -14,7 +14,11 @@ use app\controllers\StockController;
 
 function route($url, $method) {
 
-    if ($url === 'transactions') {
+    if ($url === '' || $url === 'homepage') {
+        $main = new MainController();
+        $main->homepage();
+    }
+    elseif ($url === 'transactions') {
         $controller = new Controller();
         $controller->handleRequest($method);
     }
@@ -30,10 +34,7 @@ function route($url, $method) {
         session_start();
         session_destroy();
         echo json_encode(['message' => 'Logged out']);
-    }
-    elseif ($url === 'homepage') {
-        $main = new MainController();
-        $main->homepage();
+        exit;
     }
     elseif ($url === 'stock-price') {
         require_once __DIR__ . '/../controllers/StockController.php';
@@ -63,7 +64,7 @@ function route($url, $method) {
         require_once __DIR__ . '/../../public/assets/views/auth/register.html';
         exit;
     }
-     elseif ($url === 'robinhood') {
+     elseif ( $url === 'robinhood') {
         require_once __DIR__ . '/../../public/assets/views/main/robinhood.html';
         exit;
     }
