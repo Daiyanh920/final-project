@@ -1,32 +1,36 @@
 <?php
 
 namespace app\models;
+use PDO;
 
-abstract class Model {
+require_once __DIR__ . '/../core/setup.php';
 
-    public function findAll() {
-        $query = "select * from $this->table";
-        return $this->query($query);
+
+class Model {
+    public static function getAll() {
+        $db = getDB();
+        $stmt = $db->query("SELECT * FROM transactions ORDER BY id DESC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    private function connect() {
-        $string = "mysql:hostname=" . DBHOST . ";dbname=" . DBNAME;
-        $con = new \PDO($string, DBUSER, DBPASS);
-        return $con;
+    public static function create($data) {
+        $db = getDB();
+        $stmt = $db->prepare("INSERT INTO transactions (description, category, amount, type)
+                              VALUES (:description, :category, :amount, :type)");
+
+        return $stmt->execute([
+            ':description' => htmlspecialchars($data['description']),
+            ':category' => $data['category'] ?? null,
+            ':amount' => floatval($data['amount']),
+            ':type' => $data['type']
+        ]);
     }
 
-    public function query($query, $data = []) {
-        $con = $this->connect();
-        $stm = $con->prepare($query);
-        $check = $stm->execute($data);
-        if ($check) {
-            //return as an associated array
-            $result = $stm->fetchAll(\PDO::FETCH_ASSOC);
-            if (is_array($result) && count($result)) {
-                return $result;
-            }
-        }
-        return false;
+    public static function deleteLast() {
+        $db = getDB();
+        $stmt = $db->prepare("DELETE FROM transactions ORDER BY id DESC LIMIT 1");
+        return $stmt->execute();
     }
-
 }
+
+?>

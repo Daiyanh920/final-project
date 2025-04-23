@@ -1,3 +1,131 @@
-p {
-    color: blue;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  margin-bottom: 0.5rem;
+}
+
+.input-group input,
+.input-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.button-group,
+.clear-button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 0.5rem;
+}
+
+button:hover {
+  background: #218838;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+.summary {
+  margin-top: 2rem;
+  background: #f1f1f1;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.logout {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.logout button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout button:hover {
+  background-color: #c72735;
+}
+
+.navigation {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.navigation button {
+  padding: 10px 20px;
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  background-color: #169f44;
+}
+
+.navigation a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #1db954;
+}
+.navigation a:hover {
+  text-decoration: underline;
 }

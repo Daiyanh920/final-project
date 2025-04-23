@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 2rem;
+  }
+  
+  .container {
+    background: #fff;
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  input[type="text"],
+  input[type="number"] {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 16px;
+    background: #1db954;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #169f44;
+  }
+  
+  #stock-result,
+  #buy-message,
+  #sell-message {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+ 
+  .navigation {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.navigation button {
+  padding: 8px 16px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  background-color: #005fa3;
+}

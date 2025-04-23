@@ -1,12 +1,111 @@
-<html>
-    <head>
-        <!-- remember to route relative to index.php  -->
-        <script type="text/javascript" src="./assets/js/homepage.js"></script>
-        <link rel="stylesheet" href="./assets/styles/homepage.css">
-    </head>
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Expense Tracker</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="/assets/styles/homepage.css">
 
-    <body>
-        <p>homepage!</p>
-    </body>
+</head>
+<body>
+
+  <div class="logout">
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="container">
+    <h1>Expense Tracker</h1>
+
+    <div class="section">
+
+      <h2>Income</h2>
+
+      <div class="input-group">
+        <label for="income-description">Description</label>
+        <input type="text" id="income-description" placeholder="Salary">
+      </div>
+
+      <div class="input-group">
+        <label for="income-amount">Amount</label>
+        <input type="number" id="income-amount" placeholder="100000">
+      </div>
+
+      <div class="button-group">
+        <button onclick="addIncome()">Add Income</button>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <h2>Expenses</h2>
+
+      <div class="input-group">
+        <label for="expense-description">Description</label>
+        <input type="text" id="expense-description" placeholder="Rent">
+      </div>
+
+      <div class="input-group">
+        <label for="expense-category">Category</label>
+        <select id="expense-category">
+          <option value="Housing">Housing</option>
+          <option value="Food">Food</option>
+          <option value="Transportation">Transportation</option>
+          <option value="Enterainment">Enterainment</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="expense-amount">Amount</label>
+        <input type="number" id="expense-amount" placeholder="50000">
+      </div>
+
+      <div class="button-group">
+        <button onclick="addExpense()">Add Expense</button>
+      </div>
+
+    </div>
+
+    <div class="table-container">
+      <h2>Transaction History</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody  id="transaction-history">
+          
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary">
+      <h2>Budget Summary</h2>
+      <p>Total Income: <span id="total-income">0</span></p>
+      <p>Total Expenses: <span id="total-expenses">0</span></p>
+      <p>Balance: <span id="balance">0</span></p>
+    </div>
+
+    <div class="clear-button-group">
+      <button onclick="clearAll()">Clear All</button>
+    </div>
+
+  </div>
+  
+  <div class="navigation">
+    <button onclick="window.location.href='/?url=robinhood'">Go to Mini Robinhood</button>
+  </div>
+
+  <script src="/assets/js/homepage.js"></script>
+  
+</body> 
+
+
+
+
 </html>
-

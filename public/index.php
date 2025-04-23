@@ -1,5 +1,10 @@
 <?php
 
-require '../app/core/setup.php';
-use app\core\Router;
-$router = new Router();
+require_once __DIR__ . '/../app/core/Router.php';
+
+$url = $_GET['url'] ?? '';
+$method = $_SERVER['REQUEST_METHOD'];
+
+route($url, $method);
+
+?>

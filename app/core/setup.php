@@ -1,18 +1,17 @@
 <?php
 
-//require our files, remember should be relative to index.php
-require '../app/core/Router.php';
-require '../app/models/Model.php';
-require '../app/controllers/Controller.php';
-require '../app/controllers/MainController.php';
-require '../app/controllers/UserController.php';
-require '../app/models/User.php';
+$env = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+foreach ($env as $line) {
+    if (str_starts_with(trim($line), '#') || !str_contains($line, '=')) continue;
+    list($key, $value) = explode('=', $line, 2);
+    $_ENV[trim($key)] = trim($value);
+}
 
 
-//set up env variables
-$env = parse_ini_file('../.env');
+if (!defined('DBNAME')) define('DBNAME', $_ENV['DBNAME']);
+if (!defined('DBHOST')) define('DBHOST', $_ENV['DBHOST']);
+if (!defined('DBUSER')) define('DBUSER', $_ENV['DBUSER']);
+if (!defined('DBPASS')) define('DBPASS', $_ENV['DBPASS']);
 
-define('DBNAME', $env['DBNAME']);
-define('DBHOST', $env['DBHOST']);
-define('DBUSER', $env['DBUSER']);
-define('DBPASS', $env['DBPASS']);
+?>

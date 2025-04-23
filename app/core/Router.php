@@ -1,41 +1,76 @@
 <?php
 
-namespace app\core;
+require_once __DIR__ . '/../core/setup.php';
+require_once __DIR__ . '/../models/Model.php';
+require_once __DIR__ . '/../controllers/Controller.php';
+require_once __DIR__ . '/../controllers/MainController.php';
+require_once __DIR__ . '/../controllers/AuthController.php'; 
+require_once __DIR__ . '/../controllers/StockController.php';
 
+use app\controllers\Controller;
 use app\controllers\MainController;
-use app\controllers\UserController;
+use app\controllers\AuthController;
+use app\controllers\StockController;
 
-class Router {
-    public $uriArray;
+function route($url, $method) {
 
-    function __construct() {
-        $this->uriArray = $this->routeSplit();
-        $this->handleMainRoutes();
-        $this->handleUserRoutes();
+    if ($url === 'transactions') {
+        $controller = new Controller();
+        $controller->handleRequest($method);
+    }
+    elseif ($url === 'register') {
+        $auth = new AuthController();
+        $auth->register($method);
+    }
+    elseif ($url === 'login') {
+        $auth = new AuthController();
+        $auth->login($method);
+    }
+    elseif ($url === 'logout') {
+        session_start();
+        session_destroy();
+        echo json_encode(['message' => 'Logged out']);
+    }
+    elseif ($url === 'homepage') {
+        $main = new MainController();
+        $main->homepage();
+    }
+    elseif ($url === 'stock-price') {
+        require_once __DIR__ . '/../controllers/StockController.php';
+        $controller = new \app\Controllers\StockController();
+        $controller->getStockPrice();
+    }
+    elseif ($url === 'buy-stock') {
+        require_once __DIR__ . '/../controllers/StockController.php';
+        $controller = new \app\Controllers\StockController();
+        $controller->buy();
+    }
+    elseif ($url === 'sell-stock') {
+        require_once __DIR__ . '/../controllers/StockController.php';
+        $controller = new \app\Controllers\StockController();
+        $controller->sell();
     }
 
-    protected function routeSplit() {
-        $removeQueryParams = strtok($_SERVER["REQUEST_URI"], '?');
-        return explode("/", $removeQueryParams);
+     elseif ($url === 'portfolio') {
+        $controller = new \app\Controllers\StockController();
+        $controller->getPortfolio();
     }
-
-    protected function handleMainRoutes() {
-        if ($this->uriArray[1] === '' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $mainController = new MainController();
-            $mainController->homepage();
-        }
+     elseif ($url === 'login-page') {
+        require_once __DIR__ . '/../../public/assets/views/auth/login.html';
+        exit;
     }
-
-    protected function handleUserRoutes() {
-        if ($this->uriArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->usersView();
-        }
-
-        //give json/API requests a api prefix
-        if ($this->uriArray[1] === 'api' && $this->uriArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->getUsers();
-        }
+    elseif ($url === 'register-page') {
+        require_once __DIR__ . '/../../public/assets/views/auth/register.html';
+        exit;
+    }
+     elseif ($url === 'robinhood') {
+        require_once __DIR__ . '/../../public/assets/views/main/robinhood.html';
+        exit;
+    }
+    else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Resource not found']);
     }
 }
+
+?>

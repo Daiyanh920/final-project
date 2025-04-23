@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../assets/styles/auth.css">
+</head>
+<body>
+
+
+  <div class="auth-container">
+    <h2>Register</h2>
+    <input type="text" id="reg-username" placeholder="Username"><br>
+    <input type="password" id="reg-password" placeholder="Password"><br>
+    <button id="register-btn">Sign Up</button>
+    <button onclick="window.location.href='index.php?url=login-page'">Back to Login</button>
+    <p id="register-message"></p>
+  </div>
+
+
+</body>
+
+<script>
+  $(document).ready(function () {
+  $('#register-btn').click(function () {
+    $.ajax({
+      url: '/?url=register',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: $('#reg-username').val(),
+        password: $('#reg-password').val()
+      }),
+      success: function (res) {
+        $('#register-message').text(res.message || 'Registered successfully!');
+        setTimeout(() => {
+          window.location.href = 'index.php?url=login-page';
+        }, 1000);
+      },
+      error: function (xhr) {
+        let res;
+        try {
+          res = JSON.parse(xhr.responseText);
+        } catch (e) {
+          console.error('Raw error response:', xhr.responseText);
+          $('#register-message').text('Something went wrong on the server.');
+          return;
+        }
+        $('#register-message').text(res.error || 'Registration failed.');
+      }
+    });
+  });
+});
+</script>
+
+</html>
+
